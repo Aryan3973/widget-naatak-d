@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Emoji Selector</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: transparent; /* Transparent background */
+    }
+    .widget-box {
+      border: 1px solid #333;
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+      width: 170px;
+      background-color: rgba(46, 46, 46, 0.9); /* Dark grey background with slight transparency */
+      color: #ffffff; /* White text color */
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+      height: 170px;
+    }
+    .emoji-display {
+      font-size: 2rem;
+      margin: 18px 0;
+    }
+    .selector-button {
+      background-color: #444;
+      color: #fff;
+      border: none;
+      padding: 5px 15px;
+      margin: 5px;
+      cursor: pointer;
+      border-radius: 5px;
+      font-size: 0.8rem;
+      transition: background-color 0.3s, box-shadow 0.3s;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .selector-button:hover {
+      background-color: #555;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    }
+    .selector-button:active {
+      background-color: #666;
+    }
+  </style>
+</head>
+<body>
+  <div class="widget-box">
+    <div class="emoji-display">
+      <span id="displayNaatakStithi">🌻</span>
+      <span id="displayNaatak">↘️</span>
+    </div>
+    <div>
+      <button class="selector-button" id="btnNaatakStithi">Naatak Stithi</button>
+      <button class="selector-button" id="btnNaatak">Naatak</button>
+    </div>
+  </div>
+
+  <script>
+    const naatakStithiEmojis = ['🌻', '⬛'];
+    const naatakEmojis = ['↗️', '↘️'];
+
+    // Load saved state from local storage
+    let naatakStithiIndex = parseInt(localStorage.getItem('naatakStithiIndex')) || 0;
+    let naatakIndex = parseInt(localStorage.getItem('naatakIndex')) || 0;
+
+    // Update display with saved state
+    document.getElementById('displayNaatakStithi').innerText = naatakStithiEmojis[naatakStithiIndex];
+    document.getElementById('displayNaatak').innerText = naatakEmojis[naatakIndex];
+
+    document.getElementById('btnNaatakStithi').addEventListener('click', () => {
+      // Hide Naatak emoji while choosing Naatak Stithi
+      document.getElementById('displayNaatak').style.visibility = 'hidden';
+      naatakStithiIndex = (naatakStithiIndex + 1) % naatakStithiEmojis.length;
+      document.getElementById('displayNaatakStithi').innerText = naatakStithiEmojis[naatakStithiIndex];
+      // Save the state to local storage
+      localStorage.setItem('naatakStithiIndex', naatakStithiIndex);
+    });
+
+    document.getElementById('btnNaatak').addEventListener('click', () => {
+      // Show Naatak emoji when choosing Naatak
+      document.getElementById('displayNaatak').style.visibility = 'visible';
+      naatakIndex = (naatakIndex + 1) % naatakEmojis.length;
+      document.getElementById('displayNaatak').innerText = naatakEmojis[naatakIndex];
+      // Save the state to local storage
+      localStorage.setItem('naatakIndex', naatakIndex);
+    });
+  </script>
+</body>
+</html>
